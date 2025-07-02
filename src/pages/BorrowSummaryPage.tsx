@@ -20,9 +20,9 @@ const BorrowSummaryPage = () => {
                 <tbody>
                     {data?.map((item, index) => (
                         <tr key={index} className="text-center border-t">
-                            <td className="p-2">{item.title}</td>
-                            <td>{item.isbn}</td>
-                            <td>{item.totalBorrowed}</td>
+                            <td className="p-2">{item?.book?.title}</td>
+                            <td>{item?.book?.isbn}</td>
+                            <td>{item?.totalQuantity}</td>
                         </tr>
                     ))}
                 </tbody>

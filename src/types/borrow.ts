@@ -8,8 +8,7 @@ export interface IBorrow {
 }
 
 export interface IBorrowSummary {
-  _id: string // book ID
-  title: string
-  isbn: string
-  totalBorrowed: number
+  totalQuantity: number
+  book: any
+  _id: string
 }

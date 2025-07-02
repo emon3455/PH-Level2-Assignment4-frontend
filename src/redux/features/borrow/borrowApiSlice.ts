@@ -13,6 +13,7 @@ export const borrowApiSlice = apiSlice.injectEndpoints({
     }),
     getBorrowSummary: builder.query<IBorrowSummary[], void>({
       query: () => '/borrow',
+      transformResponse: (response: any) => response.data,
       providesTags: ['Borrow'],
     }),
   }),
