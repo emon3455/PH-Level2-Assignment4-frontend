@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import BookListPage from './pages/BookListPage';
 import CreateBookPage from './pages/CreateBookPage';
 import EditBookPage from './pages/EditBookPage';
@@ -20,6 +21,7 @@ function App() {
           <Route path="/borrow-summary" element={<BorrowSummaryPage />} />
         </Routes>
       </div>
+      <Footer/>
     </>
   );
 }
