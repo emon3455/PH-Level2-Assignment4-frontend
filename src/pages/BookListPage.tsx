@@ -146,7 +146,7 @@ const BookListPage = () => {
               {data?.books?.length || 0} of {data?.meta?.total || 0} books
             </span>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {data?.books?.map((book) => (
               <div
                 key={book._id}
