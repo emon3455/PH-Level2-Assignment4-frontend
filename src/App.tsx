@@ -6,6 +6,7 @@ import CreateBookPage from './pages/CreateBookPage';
 import EditBookPage from './pages/EditBookPage';
 import BorrowBookPage from './pages/BorrowBookPage';
 import BorrowSummaryPage from './pages/BorrowSummaryPage';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
         </Routes>
       </div>
       <Footer/>
+
+       <ToastContainer />
     </>
   );
 }

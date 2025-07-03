@@ -12,6 +12,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { useCreateBookMutation } from "../redux/features/books/bookApiSlice";
+import { toast } from 'react-toastify';
 
 const genres = [
   "FICTION",
@@ -70,10 +71,10 @@ const CreateBookPage = () => {
     try {
       await createBook(form);
       navigate("/books");
+      toast.success("Book Creating Successfully Done...!");
     } catch (error) {
-      alert("Error creating book.");
+      toast.error("Error creating book.");
       console.log(error);
-      
     } finally {
       setIsLoading(false);
     }

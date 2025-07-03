@@ -25,6 +25,7 @@ export const bookApiSlice = apiSlice.injectEndpoints({
 
     getBookById: builder.query<IBook, string>({
       query: (id) => `/books/${id}`,
+      transformResponse: (response: any) => response?.data,
     }),
     createBook: builder.mutation<IBook, Partial<IBook>>({
       query: (book) => ({
