@@ -35,7 +35,7 @@ export const bookApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Books"],
     }),
-    updateBook: builder.mutation<IBook, { id: string; data: Partial<IBook> }>({
+    updateBook: builder.mutation<IBook, { id: string | undefined; data: Partial<IBook> }>({
       query: ({ id, data }) => ({
         url: `/books/${id}`,
         method: "PUT",

@@ -22,7 +22,7 @@ const BookDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { isLoading, data: book } = useGetBookByIdQuery(id!);
+  const { isLoading, data: book }: any = useGetBookByIdQuery(id!);
   const [deleteBook] = useDeleteBookMutation();
 
   const formatGenre = (genre: string) => {
@@ -94,20 +94,20 @@ const BookDetailsPage = () => {
             <div className="relative z-10">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <h1 className="text-4xl font-bold mb-3 leading-tight">{book.title}</h1>
-                  <p className="text-xl text-blue-100 mb-4">by {book.author}</p>
+                  <h1 className="text-4xl font-bold mb-3 leading-tight">{book?.title}</h1>
+                  <p className="text-xl text-blue-100 mb-4">by {book?.author}</p>
                   <div className="flex items-center gap-3">
                     <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium">
-                      {formatGenre(book.genre)}
+                      {formatGenre(book?.genre)}
                     </span>
                     <div
-                      className={`flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium ${book.available
+                      className={`flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium ${book?.available
                         ? "bg-green-500/20 text-green-100 border border-green-400/30"
                         : "bg-red-500/20 text-red-100 border border-red-400/30"
                         }`}
                     >
-                      {book.available ? <CheckCircle className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
-                      {book.available ? "Available" : "Out of Stock"}
+                      {book?.available ? <CheckCircle className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
+                      {book?.available ? "Available" : "Out of Stock"}
                     </div>
                   </div>
                 </div>
@@ -207,7 +207,7 @@ const BookDetailsPage = () => {
                 Edit Book
               </button>
 
-              <button onClick={() => handleDelete(book._id)} className="flex items-center justify-center gap-3 py-4 px-6 border-2 border-red-300 text-red-600 rounded-xl font-semibold text-lg hover:bg-red-50 transition-all duration-200 hover:border-red-400">
+              <button onClick={() => handleDelete(book?._id)} className="flex items-center justify-center gap-3 py-4 px-6 border-2 border-red-300 text-red-600 rounded-xl font-semibold text-lg hover:bg-red-50 transition-all duration-200 hover:border-red-400">
                 <Trash2 className="w-6 h-6" />
                 Delete
               </button>

@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Pagination = ({ page, setPage, totalPages }:any) => {
   const visiblePages = Math.min(totalPages, 5);
 

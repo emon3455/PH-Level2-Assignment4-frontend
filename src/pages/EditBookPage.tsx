@@ -11,7 +11,6 @@ import {
   ArrowLeft,
   AlertCircle,
   Edit,
-  CheckCircle,
 } from "lucide-react";
 import { useGetBookByIdQuery, useUpdateBookMutation } from "../redux/features/books/bookApiSlice";
 import { genres } from "../constant/genres";
@@ -20,7 +19,7 @@ import { toast } from "react-toastify";
 
 const EditBookPage = () => {
   const { id } = useParams();
-  const { data: book, isLoading: isBookLoading, refetch } = useGetBookByIdQuery(id!);
+  const { data: book, isLoading: isBookLoading, refetch } = useGetBookByIdQuery(id as string);
   const [updateBook] = useUpdateBookMutation();
   const navigate = useNavigate();
 
@@ -32,7 +31,7 @@ const EditBookPage = () => {
     description: "",
     copies: 0,
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({})as any;
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -55,19 +54,19 @@ const EditBookPage = () => {
   }, [id, refetch]);
 
 
-  const handleChange = (e) => {
+  const handleChange = (e:any) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: name === "copies" ? Number(value) : value });
     if (errors[name]) setErrors({ ...errors, [name]: "" });
   };
 
-  const handleGenreChange = (e) => {
+  const handleGenreChange = (e:any) => {
     setForm({ ...form, genre: e.target.value });
     if (errors.genre) setErrors({ ...errors, genre: "" });
   };
 
   const validateForm = () => {
-    const newErrors = {};
+    const newErrors = {} as any;
     if (!form.title.trim()) newErrors.title = "Title is required";
     if (!form.author.trim()) newErrors.author = "Author is required";
     if (!form.genre) newErrors.genre = "Genre is required";
@@ -77,12 +76,12 @@ const EditBookPage = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
     if (!validateForm()) return;
     setIsLoading(true);
     try {
-      await updateBook({ id, data: form });
+      await updateBook({ id , data: form });
       toast.success("Book Updated Successfullly!")
       navigate("/books")
     } catch (error) {
@@ -132,7 +131,7 @@ const EditBookPage = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Title Field */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 flex items-center mb-1">
+                <label className=" text-sm font-medium text-gray-700 flex items-center mb-1">
                   <Book className="h-4 w-4 mr-2 text-blue-600" />
                   Book Title *
                 </label>
@@ -156,7 +155,7 @@ const EditBookPage = () => {
 
               {/* Author Field */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 flex items-center mb-1">
+                <label className=" text-sm font-medium text-gray-700 flex items-center mb-1">
                   <User className="h-4 w-4 mr-2 text-green-600" />
                   Author *
                 </label>
@@ -180,7 +179,7 @@ const EditBookPage = () => {
 
               {/* Genre Field */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 flex items-center mb-1">
+                <label className=" text-sm font-medium text-gray-700 flex items-center mb-1">
                   <Tag className="h-4 w-4 mr-2 text-purple-600" />
                   Genre *
                 </label>
@@ -210,7 +209,7 @@ const EditBookPage = () => {
 
               {/* ISBN Field */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 flex items-center mb-1">
+                <label className=" text-sm font-medium text-gray-700 flex items-center mb-1">
                   <Hash className="h-4 w-4 mr-2 text-orange-600" />
                   ISBN *
                 </label>
@@ -234,7 +233,7 @@ const EditBookPage = () => {
 
               {/* Copies Field */}
               <div className="lg:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 flex items-center mb-1">
+                <label className=" text-sm font-medium text-gray-700 flex items-center mb-1">
                   <Copy className="h-4 w-4 mr-2 text-indigo-600" />
                   Number of Copies *
                 </label>
@@ -261,7 +260,7 @@ const EditBookPage = () => {
 
             {/* Description Field */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 flex items-center mb-1">
+              <label className=" text-sm font-medium text-gray-700 flex items-center mb-1">
                 <FileText className="h-4 w-4 mr-2 text-teal-600" />
                 Description *
               </label>
