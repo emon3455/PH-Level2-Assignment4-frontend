@@ -14,19 +14,9 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { useGetBookByIdQuery, useUpdateBookMutation } from "../redux/features/books/bookApiSlice";
+import { genres } from "../constant/genres";
+import { toast } from "react-toastify";
 
-const genres = [
-  "FICTION",
-  "NON_FICTION",
-  "SCIENCE",
-  "HISTORY",
-  "BIOGRAPHY",
-  "FANTASY",
-  "MYSTERY",
-  "ROMANCE",
-  "THRILLER",
-  "CHILDREN",
-];
 
 const EditBookPage = () => {
   const { id } = useParams();
@@ -44,7 +34,6 @@ const EditBookPage = () => {
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
   if (book && Object.keys(book).length > 0) {
@@ -88,8 +77,8 @@ const EditBookPage = () => {
     setIsLoading(true);
     try {
       await updateBook({ id, data: form });
-      setShowSuccess(true);
-      setTimeout(() => navigate("/books"), 1500);
+      toast.success("Book Updated Successfullly!")
+      navigate("/books")
     } catch (error) {
       alert("Error updating book.");
     } finally {
@@ -103,21 +92,6 @@ const EditBookPage = () => {
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-lg text-gray-600">Loading book details...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (showSuccess) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 flex items-center justify-center p-4">
-        <div className="w-full max-w-md text-center bg-white rounded-xl shadow-xl p-8">
-          <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-            <CheckCircle className="h-8 w-8 text-green-600" />
-          </div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">Book Updated Successfully!</h3>
-          <p className="text-gray-600 mb-4">"{form.title}" has been updated in your library.</p>
-          <div className="animate-pulse text-sm text-gray-500">Redirecting to books page...</div>
         </div>
       </div>
     );

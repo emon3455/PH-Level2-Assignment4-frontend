@@ -15,15 +15,10 @@ import {
   Edit,
   Trash2,
 } from "lucide-react";
-
-const genres = [
-  "FICTION",
-  "NON_FICTION",
-  "SCIENCE",
-  "HISTORY",
-  "BIOGRAPHY",
-  "FANTASY",
-];
+import Hero from "../components/Hero";
+import Pagination from "../components/Pagination";
+import { genres } from "../constant/genres";
+import Swal from "sweetalert2";
 
 const BookListPage = () => {
   const [page, setPage] = useState(1);
@@ -50,6 +45,27 @@ const BookListPage = () => {
 
   const totalPages = Math.ceil((data?.meta?.total || 1) / limit);
 
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure ?",
+      text: "You want to Delete This Book, This action is not revertable!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await deleteBook(id);
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your Book has been deleted.",
+          icon: "success"
+        });
+      }
+    });
+  }
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
@@ -64,42 +80,7 @@ const BookListPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       {/* Banner / Hero */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700"></div>
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
-          <div className="text-center">
-            <div className="flex justify-center mb-6">
-              <div className="p-4 bg-white/10 rounded-full backdrop-blur-sm">
-                <Book className="h-12 w-12 text-white" />
-              </div>
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4">
-              Welcome to Your
-              <span className="mb-10 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
-                {" "} Digital Library
-              </span>
-            </h1>
-            <p className="text-xl sm:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto">
-              Discover, manage, and explore thousands of books. Your gateway to knowledge and adventure awaits.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center text-white/90">
-              <div className="flex items-center gap-2">
-                <Users className="h-5 w-5" />
-                <span>1,000+ Active Readers</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <BookOpen className="h-5 w-5" />
-                <span>{data?.meta?.total || 0} Books Available</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Clock className="h-5 w-5" />
-                <span>24/7 Access</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Hero bookCount={data?.meta?.total} />
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -187,7 +168,7 @@ const BookListPage = () => {
                     Edit
                   </button>
                   <button
-                    onClick={() => deleteBook(book._id)}
+                    onClick={() => handleDelete(book._id)}
                     className="flex-1 border border-red-300 text-red-600 rounded-lg px-3 py-2 hover:bg-red-50 transition flex items-center justify-center gap-1"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -208,47 +189,7 @@ const BookListPage = () => {
         </div>
 
         {/* Pagination */}
-        <div className="flex justify-center items-center gap-2 mt-12">
-          <button
-            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-            disabled={page === 1}
-            className="px-4 py-2 border border-gray-300 rounded-lg bg-white hover:bg-gray-100 disabled:opacity-50"
-          >
-            Previous
-          </button>
-          <div className="flex gap-1">
-            {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
-              const pageNum = i + 1;
-              return (
-                <button
-                  key={pageNum}
-                  onClick={() => setPage(pageNum)}
-                  className={`w-10 h-10 rounded-lg ${page === pageNum ? "bg-blue-600 text-white" : "bg-white border border-gray-300 hover:bg-gray-100"}`}
-                >
-                  {pageNum}
-                </button>
-              );
-            })}
-            {totalPages > 5 && (
-              <>
-                <span className="px-2 py-2 text-gray-500">...</span>
-                <button
-                  onClick={() => setPage(totalPages)}
-                  className={`w-10 h-10 rounded-lg ${page === totalPages ? "bg-blue-600 text-white" : "bg-white border border-gray-300 hover:bg-gray-100"}`}
-                >
-                  {totalPages}
-                </button>
-              </>
-            )}
-          </div>
-          <button
-            onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-            disabled={page === totalPages}
-            className="px-4 py-2 border border-gray-300 rounded-lg bg-white hover:bg-gray-100 disabled:opacity-50"
-          >
-            Next
-          </button>
-        </div>
+        <Pagination page={page} setPage={setPage} totalPages={totalPages} />
       </div>
     </div>
   );

@@ -13,19 +13,7 @@ import {
 } from "lucide-react";
 import { useCreateBookMutation } from "../redux/features/books/bookApiSlice";
 import { toast } from 'react-toastify';
-
-const genres = [
-  "FICTION",
-  "NON_FICTION",
-  "SCIENCE",
-  "HISTORY",
-  "BIOGRAPHY",
-  "FANTASY",
-  "MYSTERY",
-  "ROMANCE",
-  "THRILLER",
-  "CHILDREN",
-];
+import { genres } from "../constant/genres";
 
 const CreateBookPage = () => {
   const [createBook] = useCreateBookMutation();
