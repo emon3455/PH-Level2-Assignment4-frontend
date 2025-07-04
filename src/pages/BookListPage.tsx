@@ -12,14 +12,11 @@ import {
   Edit,
   Trash2,
   Eye,
-  Calendar,
-  Hash,
 } from "lucide-react";
 import Hero from "../components/Hero";
 import Pagination from "../components/Pagination";
 import { genres } from "../constant/genres";
 import Swal from "sweetalert2";
-import { formatDate } from "date-fns";
 
 const BookListPage = () => {
   const [page, setPage] = useState(1);
