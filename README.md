@@ -1,69 +1,64 @@
-# React + TypeScript + Vite
+# 📚 Library Management System – Frontend (React + TypeScript + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend of the **Library Management System**, a web application built to manage books, borrowing, and library operations. It is built using **React**, **TypeScript**, and **Vite**, ensuring high performance and a great developer experience.
 
-Currently, two official plugins are available:
+🔗 **Live URLs**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* **Frontend**: [https://library-management-frontend-gamma.vercel.app/books](https://library-management-frontend-gamma.vercel.app/books)
+* **Backend**: [https://library-management-backend-ten.vercel.app](https://library-management-backend-ten.vercel.app)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Project Features
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+* Modern **React + TypeScript** architecture
+* **Vite** for fast builds and hot module replacement
+* **Tailwind CSS** for responsive UI
+* **Redux Toolkit + RTK Query** for state and API management
+* Reusable UI components
+* Fully connected to a live Express/MongoDB backend
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🛠️ Project Setup Guide
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/library-management-frontend.git
+cd library-management-frontend
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install Dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+# or
+yarn
 ```
+
+### 3. Run the Development Server
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+Visit `http://localhost:5173` in your browser.
+
+### 4. Build for Production
+
+```bash
+npm run build
+```
+
+---
+
+## 📦 Tech Stack
+
+* **Frontend**: React, TypeScript, Tailwind CSS, Vite
+* **State Management**: Redux Toolkit, RTK Query
+* **Backend**: Express.js + MongoDB (Live)
+
+---
