@@ -1,5 +1,6 @@
 import { apiSlice } from '../app/apiSlice';
 import type { IBorrow, IBorrowSummary } from '../../../types/borrow';
+import type { IBook } from '../../../types/book';
 
 export const borrowApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -15,11 +16,11 @@ export const borrowApiSlice = apiSlice.injectEndpoints({
       query: () => '/borrow',
       transformResponse: (response: any) => response.data,
       providesTags: ['Borrow'],
-    }),
+    })
   }),
 });
 
 export const {
   useBorrowBookMutation,
-  useGetBorrowSummaryQuery,
+  useGetBorrowSummaryQuery
 } = borrowApiSlice;

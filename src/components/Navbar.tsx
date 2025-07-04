@@ -125,7 +125,7 @@ const Navbar = () => {
               <Button className="w-full justify-start hover:bg-purple-50 hover:text-purple-600 relative">
                 <FileText className="h-4 w-4 mr-1" />
                 <span>Borrow Summary</span>
-                <Badge className="ml-auto h-5 w-5 p-0">3</Badge>
+                <Badge className="ml-auto h-5 w-5 p-0">{data?.length}</Badge>
               </Button>
             </Link>
             <div className="border-t border-gray-200 pt-4 mt-4 flex space-x-2">

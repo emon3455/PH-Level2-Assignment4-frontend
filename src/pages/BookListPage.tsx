@@ -5,20 +5,21 @@ import {
   useGetBooksQuery,
 } from "../redux/features/books/bookApiSlice";
 import {
-  Book,
-  Users,
   BookOpen,
-  Clock,
   Search,
   Filter,
   Star,
   Edit,
   Trash2,
+  Eye,
+  Calendar,
+  Hash,
 } from "lucide-react";
 import Hero from "../components/Hero";
 import Pagination from "../components/Pagination";
 import { genres } from "../constant/genres";
 import Swal from "sweetalert2";
+import { formatDate } from "date-fns";
 
 const BookListPage = () => {
   const [page, setPage] = useState(1);
@@ -45,7 +46,7 @@ const BookListPage = () => {
 
   const totalPages = Math.ceil((data?.meta?.total || 1) / limit);
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: string) => {
     Swal.fire({
       title: "Are you sure ?",
       text: "You want to Delete This Book, This action is not revertable!",
@@ -140,7 +141,6 @@ const BookListPage = () => {
                         {book.title}
                       </h3>
                       <p className="text-sm text-gray-600 mb-1">by {book.author}</p>
-                      {/* <p className="text-xs text-gray-500">{book.publishedYear}</p> */}
                     </div>
                     <span className={`ml-2 px-3 py-1 text-xs rounded-full ${book.available ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>
                       {book.available ? "Available" : "Out of Stock"}
@@ -151,7 +151,6 @@ const BookListPage = () => {
                     <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded">{book.genre.replace("_", " ")}</span>
                     <div className="flex items-center gap-1">
                       <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                      {/* <span className="text-xs text-gray-600">{book.rating || "N/A"}</span> */}
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-2 text-xs text-gray-500">
@@ -160,6 +159,13 @@ const BookListPage = () => {
                   </div>
                 </div>
                 <div className="pt-4 border-t border-gray-100 flex gap-2 p-5">
+                  <button
+                    onClick={() => navigate(`/books/${book._id}`)}
+                    className="flex items-center justify-center gap-2 py-3 px-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl font-medium hover:from-indigo-600 hover:to-purple-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                    title="Book Details"
+                  >
+                    <Eye className="w-4 h-4" />
+                  </button>
                   <button
                     onClick={() => navigate(`/edit-book/${book._id}`)}
                     className="flex-1 border border-blue-300 text-blue-600 rounded-lg px-3 py-2 hover:bg-blue-50 transition flex items-center justify-center gap-1"

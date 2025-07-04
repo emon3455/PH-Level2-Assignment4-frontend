@@ -20,7 +20,7 @@ import { toast } from "react-toastify";
 
 const EditBookPage = () => {
   const { id } = useParams();
-  const { data: book, isLoading: isBookLoading } = useGetBookByIdQuery(id || "");
+  const { data: book, isLoading: isBookLoading, refetch } = useGetBookByIdQuery(id!);
   const [updateBook] = useUpdateBookMutation();
   const navigate = useNavigate();
 
@@ -30,23 +30,30 @@ const EditBookPage = () => {
     genre: "",
     isbn: "",
     description: "",
-    copies: 1,
+    copies: 0,
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-  if (book && Object.keys(book).length > 0) {
-    setForm({
-      title: book.title || "",
-      author: book.author || "",
-      genre: book.genre || "",
-      isbn: book.isbn || "",
-      description: book.description || "",
-      copies: book.copies || 1,
-    });
-  }
-}, [book]);
+    if (book) {
+      setForm({
+        title: book?.title || "",
+        author: book?.author || "",
+        genre: book?.genre || "",
+        isbn: book?.isbn || "",
+        description: book?.description || "",
+        copies: book?.copies || 0,
+      });
+    }
+  }, [book]);
+
+  useEffect(() => {
+    if (id) {
+      refetch(); // Force re-fetch on mount
+    }
+  }, [id, refetch]);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -66,7 +73,6 @@ const EditBookPage = () => {
     if (!form.genre) newErrors.genre = "Genre is required";
     if (!form.isbn.trim()) newErrors.isbn = "ISBN is required";
     if (!form.description.trim()) newErrors.description = "Description is required";
-    if (form.copies < 1) newErrors.copies = "Copies must be at least 1";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -135,11 +141,10 @@ const EditBookPage = () => {
                   value={form.title}
                   onChange={handleChange}
                   placeholder="Enter book title"
-                  className={`h-12 w-full rounded border px-3 focus:outline-none ${
-                    errors.title
+                  className={`h-12 w-full rounded border px-3 focus:outline-none ${errors.title
                       ? "border-red-500 focus:border-red-500"
                       : "border-gray-200 focus:border-blue-500"
-                  }`}
+                    }`}
                 />
                 {errors.title && (
                   <div className="flex items-center text-red-600 text-sm mt-1">
@@ -160,11 +165,10 @@ const EditBookPage = () => {
                   value={form.author}
                   onChange={handleChange}
                   placeholder="Enter author name"
-                  className={`h-12 w-full rounded border px-3 focus:outline-none ${
-                    errors.author
+                  className={`h-12 w-full rounded border px-3 focus:outline-none ${errors.author
                       ? "border-red-500 focus:border-red-500"
                       : "border-gray-200 focus:border-blue-500"
-                  }`}
+                    }`}
                 />
                 {errors.author && (
                   <div className="flex items-center text-red-600 text-sm mt-1">
@@ -184,11 +188,10 @@ const EditBookPage = () => {
                   name="genre"
                   value={form.genre}
                   onChange={handleGenreChange}
-                  className={`h-12 w-full rounded border px-3 focus:outline-none ${
-                    errors.genre
+                  className={`h-12 w-full rounded border px-3 focus:outline-none ${errors.genre
                       ? "border-red-500"
                       : "border-gray-200 focus:border-blue-500"
-                  }`}
+                    }`}
                 >
                   <option value="">Select a genre</option>
                   {genres.map((g) => (
@@ -216,11 +219,10 @@ const EditBookPage = () => {
                   value={form.isbn}
                   onChange={handleChange}
                   placeholder="Enter ISBN number"
-                  className={`h-12 w-full rounded border px-3 focus:outline-none ${
-                    errors.isbn
+                  className={`h-12 w-full rounded border px-3 focus:outline-none ${errors.isbn
                       ? "border-red-500 focus:border-red-500"
                       : "border-gray-200 focus:border-blue-500"
-                  }`}
+                    }`}
                 />
                 {errors.isbn && (
                   <div className="flex items-center text-red-600 text-sm mt-1">
@@ -239,15 +241,14 @@ const EditBookPage = () => {
                 <input
                   name="copies"
                   type="number"
-                  min="1"
+                  min="0"
                   value={form.copies}
                   onChange={handleChange}
                   placeholder="Enter number of copies"
-                  className={`h-12 w-full max-w-xs rounded border px-3 focus:outline-none ${
-                    errors.copies
+                  className={`h-12 w-full max-w-xs rounded border px-3 focus:outline-none ${errors.copies
                       ? "border-red-500 focus:border-red-500"
                       : "border-gray-200 focus:border-blue-500"
-                  }`}
+                    }`}
                 />
                 {errors.copies && (
                   <div className="flex items-center text-red-600 text-sm mt-1">
@@ -271,11 +272,10 @@ const EditBookPage = () => {
                 rows={4}
                 maxLength={500}
                 placeholder="Enter book description, summary, or key details..."
-                className={`w-full rounded border px-3 py-2 resize-none focus:outline-none ${
-                  errors.description
+                className={`w-full rounded border px-3 py-2 resize-none focus:outline-none ${errors.description
                     ? "border-red-500 focus:border-red-500"
                     : "border-gray-200 focus:border-blue-500"
-                }`}
+                  }`}
               />
               {errors.description && (
                 <div className="flex items-center text-red-600 text-sm mt-1">
