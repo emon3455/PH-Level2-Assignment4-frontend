@@ -81,7 +81,7 @@ const BookDetailsPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Back Button */}
-        <button className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 mb-6 transition-colors group">
+        <button onClick={()=>navigate("/books")} className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 mb-6 transition-colors group">
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           <span className="font-medium">Back to Library</span>
         </button>
